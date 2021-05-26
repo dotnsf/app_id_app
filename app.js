@@ -36,7 +36,7 @@ passport.use( new WebAppStrategy({
 
 //. #35
 var access_token = null;
-settings.getAccessToken().then( function( token ){
+getAccessToken().then( function( token ){
   if( token ){
     access_token = token;
   }
@@ -154,6 +154,33 @@ async function getProfile( userId ){
     }else{
       resolve( null );
     }
+  });
+}
+
+async function getAccessToken(){
+  return new Promise( async ( resolve, reject ) => {
+    //. GET an IAM token
+    //. https://cloud.ibm.com/docs/appid?topic=appid-manging-api&locale=ja
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+    };
+    var option = {
+      url: 'https://iam.cloud.ibm.com/oidc/token',
+      method: 'POST',
+      body: 'grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=' + settings.apiKey,
+      headers: headers
+    };
+    request( option, ( err, res, body ) => {
+      if( err ){
+        console.log( err );
+        resolve( null );
+      }else{
+        body = JSON.parse( body );
+        var access_token = body.access_token;
+        resolve( access_token );
+      }
+    });
   });
 }
 

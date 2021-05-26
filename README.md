@@ -2,6 +2,8 @@
 
 ## Overview
 
+Sample application which use IBM AppID.
+
 
 ## Copyright
 
