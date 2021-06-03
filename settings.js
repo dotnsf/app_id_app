@@ -1,5 +1,3 @@
-var request = require( 'request' );
-
 //. IBM App ID
 exports.region = 'us-south';
 exports.tenantId = '';
