@@ -18,6 +18,7 @@ var settings = require( './settings' );
 app.use( session({
   secret: 'app_id_app',
   resave: false,
+  cookie: { maxAge: ( 365 * 24 * 60 * 60 * 1000 ) },
   saveUninitialized: false
 }));
 
